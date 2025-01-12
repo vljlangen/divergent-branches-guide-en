@@ -43,7 +43,6 @@ Cloning a new repository is a reliable way to resolve issues related to conflict
 
 ------------------------------------------------------------------------
 
-Divergent Git branches - from problem to solution © 2025 by\
-Ville Langén is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
+Divergent Git branches - from problem to solution © 2025 by Ville Langén is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
 
 [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
