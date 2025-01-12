@@ -1,4 +1,4 @@
-# Haarojen divergenssi{#divergences}
+# Branch Divergence{#divergences}
 
 <br><br>
 <img src="images/divergence.jpg" alt="Test Image" style="max-width: 100%; height: auto;">
@@ -7,55 +7,55 @@
 </figcaption>
 <br><br>
 
-Edellisessä luvussa tarkastelimme tilannetta, jossa kaksi käyttäjää työskenteli päähaarassa ilman ongelmia. Tässä luvussa näemme, mitä tapahtuu, kun kaksi käyttäjää samanaikaisesti tekee muutoksia samaan commit-tilanteeseen `C0` ja yrittää työntää omat commitinsa etähakemistoon.
+In the previous chapter, we examined a situation where two users worked in the main branch without problems. In this chapter, we'll see what happens when two users simultaneously make changes to the same commit state `C0` and try to push their own commits to the remote repository.
 
 \
 
-## Haaraongelman synty
+## Origin of Branch Problems
 
-**Vaihe 1: Käyttäjä 1 ja käyttäjä 2 tekevät pull-komennon (C0)**
+**Step 1: User 1 and User 2 execute pull command (C0)**
 
 \
 
-Molemmat käyttäjät aloittavat projektin samasta lähtötilanteesta. He tekevät **pull-komennon** ja päivittävät paikalliset hakemistonsa commit-tilaan `C0`.
+Both users start the project from the same initial state. They execute a **pull command** and update their local repositories to commit state `C0`.
 
-Tilanne näytetään tässä kaaviossa:
+The situation is shown in this diagram:
 
 ![](images/divergent_branch1.png){width="410"}
 
 \
 
-**Vaihe 2: Käyttäjä 1:n muokkaukset hyväksytään etähakemistoon**
+**Step 2: User 1's modifications are accepted to the remote repository**
 
 \
 
--   **Käyttäjä 1** muokkaa tiedostoa ja tekee commitin `C1`.
--   **Käyttäjä 1** suorittaa push-komennon, ja commit `C1` hyväksytään etähakemistoon, koska se perustuu suoraan tilaan `C0`.
+- **User 1** modifies the file and makes commit `C1`.
+- **User 1** executes a push command, and commit `C1` is accepted to the remote repository because it's based directly on state `C0`.
 
 ![](images/divergent_branch2.png){width="415"}
 
 \
 
-**Vaihe 3: Käyttäjän 2:n muokkauksia ei hyväksytä etähakemistoon**
+**Step 3: User 2's modifications are not accepted to the remote repository**
 
 \
 
-1.  **Käyttäjä 2** muokkaa toista osaa tiedostosta ja tekee commitin `C2`.
-2.  **Käyttäjä 2** yrittää suorittaa push-komennon, mutta Git estää tämän, koska etähakemistossa oleva päähaara on edennyt commit-tilaan `C1`. Käyttäjän 2 paikallinen commit `C2` on nyt ristiriidassa etähakemiston tilan kanssa.
+1. **User 2** modifies another part of the file and makes commit `C2`.
+2. **User 2** tries to execute a push command, but Git prevents this because the main branch in the remote repository has advanced to commit state `C1`. User 2's local commit `C2` is now in conflict with the remote repository state.
 
 ![](images/divergent_branch3.png){width="451"}
 
 \
 
-## Yhteenveto
+## Summary
 
 \
 
-Kun kaksi käyttäjää yrittää tehdä muutoksia samanaikaisesti ja työntää niitä etähakemistoon, syntyy **haarojen divergenssi**. Tämä tarkoittaa, että etähakemiston ja paikallisten haarojen välillä on ristiriita, joka vaatii käyttäjältä lisätoimenpiteitä (kuten yhdistämistä tai uudelleenpohjustusta) ongelman ratkaisemiseksi.
+When two users try to make changes simultaneously and push them to the remote repository, **branch divergence** occurs. This means there is a conflict between the remote repository and local branches that requires additional actions from the user (such as merging or rebasing) to resolve the problem.
 
 \
 
-Seuraavassa luvussa käsittelemme, kuinka näitä ristiriitoja voidaan ratkaista eri tavoilla.
+In the next chapter, we'll discuss how these conflicts can be resolved in different ways.
 
 \
 
@@ -63,9 +63,7 @@ Seuraavassa luvussa käsittelemme, kuinka näitä ristiriitoja voidaan ratkaista
 
 ------------------------------------------------------------------------
 
-Divergent Git branches - ongelmasta ratkaisuun © 2025 by
-Ville Langén is licensed under the [CC BY-SA
-4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
+Divergent Git branches - from problem to solution © 2025 by
+Ville Langén is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
 
-[![CC BY-SA
-4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)

@@ -1,5 +1,4 @@
-
-# Ei Git-haaraongelmia{#no-divergences}
+# No Git Branch Problems{#no-divergences}
 
 <br><br>
 <img src="images/no-divergence.jpg" alt="Test Image" style="max-width: 100%; height: auto;">
@@ -8,21 +7,20 @@
 </figcaption>
 <br><br>
 
+In this chapter, we'll examine a situation where two or more users work in the main branch without any divergence conflicts between updates. I'll present a simple workflow where users make their own changes and updates without the situation escalating into branch problems.
 
-Tässä luvussa käsittelemme tilannetta, jossa kaksi tai useampi käyttäjä työskentelee päähaarassa ilman eri päivitysten välisiä divergenssi-ristiriitoja. Esittelen yksinkertaisen työnkulun, jossa käyttäjät tekevät omat muutoksensa ja päivityksensä ilman, että tilanne eskaloituu haaraongelmiksi. 
+This is a typical situation when everyone remembers to execute a pull command before making their own modifications, keeping the main branch stable.
 
-Tämä on tyypillinen tilanne, kun jokainen muistaa tehdä pull-komennon ennen omia muokkauksiaan, jolloin päähaara pysyy vakaana.
-
-## Vakaa päähaara
-
-\
-
-**Tilanne: Remote Main (C0)**
+## Stable Main Branch
 
 \
 
-Työ alkaa etähakemistossa olevasta päähaarasta, jossa viimeisin tilanne on commit `C0`.\
-Etähakemistoa kuvaa seuraava kaavio:
+**Situation: Remote Main (C0)**
+
+\
+
+Work begins with the main branch in the remote repository, where the latest state is commit `C0`.\
+The remote repository is illustrated in the following diagram:
 
 ![](images/no_divergent_branch_1.png){width="468"}\
 
@@ -32,11 +30,11 @@ Etähakemistoa kuvaa seuraava kaavio:
 
 \
 
-**Käyttäjä 1: Pull (C0)**
+**User 1: Pull (C0)**
 
 \
 
-**Pull**: Käyttäjä 1 lataa uusimmat tiedot etähakemistosta (`C0`) paikalliseen hakemistoonsa.
+**Pull**: User 1 downloads the latest data from the remote repository (`C0`) to their local repository.
 
 ![](images/no_divergent_branch_2.png){width="450"}\
 
@@ -46,14 +44,14 @@ Etähakemistoa kuvaa seuraava kaavio:
 
 \
 
-**Käyttäjä 1: muokkaus ja push (C1)**
+**User 1: modification and push (C1)**
 
 \
 
-1.  **Muokkaus**: Käyttäjä 1 muokkaa tiedostoja ja tekee commitin `C1`.
-2.  **Push**: Muutokset päivitetään takaisin etähakemistoon.
+1. **Modification**: User 1 modifies files and makes commit `C1`.
+2. **Push**: Changes are updated back to the remote repository.
 
-Tilanne etähakemistossa commitin `C1` jälkeen:
+The situation in the remote repository after commit `C1`:
 
 ![](images/no_divergent_branch_3.png){width="450"}
 
@@ -65,11 +63,11 @@ Tilanne etähakemistossa commitin `C1` jälkeen:
 
 \
 
-**Käyttäjä 2: Pull (C1)**
+**User 2: Pull (C1)**
 
 \
 
-**Pull**: Käyttäjä 2 lataa commitin `C1` paikalliseen hakemistoonsa.
+**Pull**: User 2 downloads commit `C1` to their local repository.
 
 <br>
 
@@ -83,14 +81,14 @@ Tilanne etähakemistossa commitin `C1` jälkeen:
 
 \
 
-**Käyttäjä 2: muokkaus ja push (C2)**
+**User 2: modification and push (C2)**
 
 \
 
-1.  **Muokkaus**: Käyttäjä 2 muokkaa tiedostoja ja tekee commitin `C2`.
-2.  **Push**: Muutokset päivitetään takaisin etähakemistoon.
+1. **Modification**: User 2 modifies files and makes commit `C2`.
+2. **Push**: Changes are updated back to the remote repository.
 
-Tilanne etähakemistossa commitin `C2` jälkeen:
+The situation in the remote repository after commit `C2`:
 
 \
 
@@ -104,11 +102,11 @@ Tilanne etähakemistossa commitin `C2` jälkeen:
 
 \
 
-## Yhteenveto
+## Summary
 
-Tässä yksinkertaisessa esimerkissä molemmat käyttäjät työskentelivät päähaarassa ilman ristiriitoja. Jokainen vaihe seuraa loogisesti toistaan: pull → muokkaus → commit → push.
+In this simple example, both users worked in the main branch without conflicts. Each step follows logically from the previous one: pull → modification → commit → push.
 
-Seuraavassa luvussa tarkastelemme tilannetta, jossa molemmat käyttäjät muokkaavat commitia `C0` samanaikaisesti. Tämä voi johtaa divergent-haaroihin ja konfliktien ratkaisuun.
+In the next chapter, we'll examine a situation where both users modify commit `C0` simultaneously. This can lead to divergent branches and conflict resolution.
 
 \
 
@@ -116,6 +114,6 @@ Seuraavassa luvussa tarkastelemme tilannetta, jossa molemmat käyttäjät muokka
 
 ------------------------------------------------------------------------
 
-Divergent Git branches - ongelmasta ratkaisuun © 2025 by Ville Langén is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
+Divergent Git branches - from problem to solution © 2025 by Ville Langén is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
 
 [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)

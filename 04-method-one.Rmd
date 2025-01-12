@@ -1,6 +1,4 @@
-# Korjausmetodi 1: *merge*-toiminto{#method-one}
-
-
+# Fix Method 1: *merge* function{#method-one}
 
 <br><br>
 <img src="images/merge.jpg" alt="Test Image" style="max-width: 100%; height: auto;">
@@ -9,9 +7,9 @@
 </figcaption>
 <br><br>
 
-Edellisessä luvussa tarkastelimme tilannetta, jossa kaksi käyttäjää samanaikaisesti teki muutoksia samaan commit-tilanteeseen `C0` ja yritti työntää omat commitinsa etähakemistoon. Tässä luvussa näemme, mitä tapahtuu, kun käyttäjä asettaa Gitin konfiguraatiot siten, että pull-komento pyrkii automaattisesti yhdistämään (merge) muutokset.
+In the previous chapter, we examined a situation where two users simultaneously made changes to the same commit state `C0` and tried to push their own commits to the remote repository. In this chapter, we'll see what happens when a user configures Git settings so that the pull command automatically attempts to merge changes.
 
-Tarkastelemme tilanteen etenemistä etenkin Käyttäjän 2 näkökulmasta.
+We'll examine the progression of the situation especially from User 2's perspective.
 
 \
 
@@ -21,29 +19,29 @@ Tarkastelemme tilanteen etenemistä etenkin Käyttäjän 2 näkökulmasta.
 
 \
 
-## Pull ilman `merge`-lupaa{#pull-without-merge}
+## Pull without `merge` permission{#pull-without-merge}
 
-**Vaihe 1: Käyttäjä 1 ja Käyttäjä 2 tekevät pull-komennon (C0)**
+**Step 1: User 1 and User 2 execute pull command (C0)**
 
 \
 
-Molemmat käyttäjät aloittavat projektin samasta lähtötilanteesta. He tekevät **pull-komennon** ja päivittävät paikalliset hakemistonsa commit-tilaan `C0`.
+Both users start the project from the same initial state. They execute a **pull command** and update their local repositories to commit state `C0`.
 
-Tämän jälkeen he aloittavat tiedoston `test.R` työstämisen. Se näyttää pisteessä `C0` kaikille käyttäjille tältä:
+After this, they begin working on the file `test.R`. At point `C0`, it looks like this for all users:
 
 \
 
 ![]()\
 
-(ref:alkutilanne) Alkutilanne commit-pisteessä C0.
+(ref:initial-state) Initial state at commit point C0.
 
-```{r alkutilanne, fig.show='hold', echo=FALSE, out.width='50%', fig.margin = TRUE}
+```{r initial-state, fig.show='hold', echo=FALSE, out.width='50%', fig.margin = TRUE}
 
 knitr::include_graphics("images/SCR-20250110-udus.png")
 
 ```
 
-**Kuva**. Alkutilanne commit-pisteessä C0.
+**Figure**. Initial state at commit point C0.
 
 \
 
@@ -53,16 +51,16 @@ knitr::include_graphics("images/SCR-20250110-udus.png")
 
 \
 
-**Vaihe 2: Käyttäjät 1 ja 2 muokkaavat tiedostoa kukin tahollaan**
+**Step 2: Users 1 and 2 modify the file independently**
 
 \
 
-- Käyttäjä 1 on muokannut tiedostoa ja **työntänyt jo sen etähakemistoon**.
-- Käyttäjä 2 niin ikään on muokannut tiedostoa, mutta ei ole vielä työntänyt sitä etähakemistoon.
+- User 1 has modified the file and **already pushed it to the remote repository**.
+- User 2 has also modified the file but hasn't pushed it to the remote repository yet.
 
 \
 
-(ref:testfile) Käyttäjä 1:n tekemät muutokset jo etähakemistossa (vasen kuva), Käyttäjä 2:n tekemiä muutoksia ei ole vielä pushattu (oikealla). Muutokset poikkeavat toisistaan selvästi.
+(ref:testfile) User 1's changes already in remote repository (left image), User 2's changes not yet pushed (right). The changes clearly differ from each other.
 
 ```{r testfile, fig.show='hold', echo=FALSE, out.width=c('44%','10%','44%'), fig.margin = TRUE}
 
@@ -72,7 +70,7 @@ knitr::include_graphics("images/SCR-20250110-uejf.png")
 
 ```
 
-**Kuva**. Käyttäjä 1:n tekemät muutokset jo etähakemistossa (vasen kuva), Käyttäjä 2:n tekemiä muutoksia ei ole vielä pushattu (oikealla). ***Käyttäjien tekemät muutokset poikkeavat toisistaan selvästi.***
+**Figure**. User 1's changes already in remote repository (left image), User 2's changes not yet pushed (right). ***The users' changes clearly differ from each other.***
 
 \
 
@@ -82,47 +80,47 @@ knitr::include_graphics("images/SCR-20250110-uejf.png")
 
 \
 
-**Vaihe 3: Käyttäjä 2 yrittää pushata tekemiään muokkauksia etähakemistoon**\
+**Step 3: User 2 tries to push their modifications to the remote repository**\
 
 \
 
-- Käyttäjä 2 yrittää ensin tehdä pull-komentoa, mutta tämä epäonnistuu:
-
-\
-
-![](images/Jan-10-2025%2023-25-04.mp4)
-
-**Video**. Ensimmäinen - ja epäonnistunut - pull-yritys.
-
-\
-
-\
-
-- Käyttäjä 2 yrittää tehdä commit + push -komentoa, mutta myös tämä epäonnistuu:
+- User 2 first tries to execute a pull command, but this fails:
 
 \
 
 ![](images/Jan-10-2025%2023-25-04.mp4)
 
-**Video**. Myös commit + push epäonnistuu.
+**Video**. First - and failed - pull attempt.
 
 \
 
 \
 
-- Käyttäjä 2 tekee uudelleen pull-komennon ja saa seuraavan virheilmoituksen ohjeineen:
+- User 2 tries to execute commit + push command, but this also fails:
+
+\
+
+![](images/Jan-10-2025%2023-25-04.mp4)
+
+**Video**. Commit + push also fails.
+
+\
+
+\
+
+- User 2 makes another pull command and receives the following error message with instructions:
 
 \
 
 ![](images/Jan-10-2025%2023-29-43.mp4)\
 
-**Video**. Uusi - epäonnistunut - pull-yritys.
+**Video**. New - failed - pull attempt.
 
 \
 
 \
 
-- Käyttäjä 2 kopioi leikepöydälle Gitin antamasta ohjeesta seuraavan komennon:
+- User 2 copies the following command from Git's instructions to the clipboard:
 
 \
 
@@ -132,15 +130,15 @@ knitr::include_graphics("images/SCR-20250110-uejf.png")
 
 ![](images/Jan-10-2025%2023-32-44.gif)
 
-**Video**. Pull-yrityksestä leikepöydälle kopioitava käsky.
+**Video**. Command to be copied to clipboard from pull attempt.
 
 \
 
 \
 
-## `merge`-luvan antaminen
+## Giving `merge` permission
 
-Ennen kuin Käyttäjä 2 tekee kolmannen pull-yrityksen, hän ajaa Terminalissa komennon
+Before User 2 makes a third pull attempt, they run the command in Terminal
 
 \
 
@@ -150,9 +148,9 @@ git config pull.rebase false
 
 \
 
-antaakseen Gitille luvan yrittää merge-toimintoa, kun uusia muutoksia vedetään etähakemistosta.
+to give Git permission to attempt merge operation when pulling new changes from the remote repository.
 
-Komennon ajaminen Terminalissa tapahtuu seuraavasti:
+Running the command in Terminal happens as follows:
 
 \
 
@@ -164,81 +162,79 @@ knitr::include_graphics("images/Jan-10-2025-23-34-59.mp4")
 
 ```
 
-**Video**. Komennon `git config pull.rebase false` ajaminen Terminalissa.
+**Video**. Running the command `git config pull.rebase false` in Terminal.
 
 \
 
 \
 
+## Pull with merge permission
 
-## Pull merge-luvalla
-
-Nyt Käyttäjä 2 voi onnistuneesti tehdä pull-komennon, joka luo uuden yhdistämiscommitin. Se kuitenkin tuottaa varoituksen, joka käskee varmistaa, että yhdistäminen on ollut onnistunutta:
+Now User 2 can successfully execute a pull command, which creates a new merge commit. However, it produces a warning that instructs to verify that the merge was successful:
 
 \
 
 ![](images/Jan-10-2025-23-36-37.mp4)
 
-**Video**. Kolmas pull-yritys onnistuu.
+**Video**. Third pull attempt succeeds.
 
 \
 
 \
 
-Seuraavaksi Käyttäjä 2:n tulee varmistaa testitiedostoa `test.r` muokkaamalla, että *merge* on onnistunut.
+Next, User 2 needs to verify by editing the test file `test.r` that the *merge* was successful.
 
 \
 
 ![](images/Jan-11-2025-22-44-07.mp4)
 
-**Video**. Tiedosto `test.R` tulee muokata manuaalisesti kuntoon *merge*-toiminnon jälkeen.
+**Video**. File `test.R` must be manually edited to fix after the *merge* operation.
 
 \
 
 \
 
-Tämän jälkeen commit + push -toiminnot menevät läpi ongelmitta:
+After this, commit + push operations go through without problems:
 
 \
 
 ![](images/Jan-10-2025-23-41-12.mp4){width="99%"}
 
-**Video**. Commit + push -toiminnot menevät läpi etähakemistoon.
+**Video**. Commit + push operations go through to the remote repository.
 
 \
 
 \
 
-Nyt tiedosto `test.R` näkyy Käyttäjä 2:n päivittämässä muodossa GitHubissa:
+Now the file `test.R` appears in User 2's updated form in GitHub:
 
 \
 
 ![](images/Jan-10-2025-23-43-57.mp4)
 
-**Video**. Mergen läpikäynyt tiedosto näkyy nyt etähakemistossa GitHubissa.
+**Video**. The merged file now appears in the remote repository on GitHub.
 
 \
 
 \
 
-## Binaariset tiedostot
+## Binary files
 
-**Binaariset tiedostot** ovat tiedostoja, jotka sisältävät tietoa muodossa, jota ei voida suoraan lukea tai muokata tekstieditorilla. Esimerkkejä binaarisista tiedostoista ovat esimerkiksi Word-asiakirjat (*.docx*) ja bittikarttakuvat (esim. *.png*). Näitä tiedostoja ei voi yhdistää *merge*-toiminnolla Gitissä, koska niiden sisältöä ei voida tulkita yksinkertaisena tekstinä, ja pienetkin muutokset tiedostossa voivat aiheuttaa suuria eroja binäärisessä rakenteessa.
+**Binary files** are files that contain information in a form that cannot be directly read or edited with a text editor. Examples of binary files include Word documents (*.docx*) and bitmap images (e.g., *.png*). These files cannot be merged with Git's *merge* operation because their content cannot be interpreted as simple text, and even small changes in the file can cause large differences in the binary structure.
 
-Vaikka asetat Gitin käyttämään `git config pull.rebase false` varmistaaksesi yksinkertaisemman vedon (`pull`), se ei auta ratkaisemaan binaaristen tiedostojen yhdistämistä. Kun kaksi käyttäjää tekee muutoksia samaan binaariseen tiedostoon eri commit-tiloissa, syntyy tilanne, jonka ratkaiseminen vaatii järeämpiä konsteja.
+Even if you set Git to use `git config pull.rebase false` to ensure simpler pulling, it doesn't help resolve merging binary files. When two users make changes to the same binary file in different commit states, a situation arises that requires more robust solutions.
 
-### Esimerkkinä *.docx*
-
-\
-
-**Vaihe 1: Etähakemiston tilanne (C0)**
+### Example with *.docx*
 
 \
 
-Kaikki käyttäjät aloittavat tilanteesta, jossa *test.docx* on commit-tilassa `C0` ja näyttää seuraavalta:
+**Step 1: Remote repository state (C0)**
 
 \
 
+All users start from a situation where *test.docx* is in commit state `C0` and looks like this:
+
+\
 
 ![](images/SCR-20250111-kkay.png)
 
@@ -246,75 +242,66 @@ Kaikki käyttäjät aloittavat tilanteesta, jossa *test.docx* on commit-tilassa 
 
 \
 
-
-**Vaihe 2. Käyttäjä 1 ja käyttäjä 2 tekevät omat muokkauksensa samaan Word-tiedostoon:**
+**Step 2. User 1 and User 2 make their own modifications to the same Word file:**
 
 \
 
-
 ![](images/SCR-20250111-kklf.png)
 
-**Kuva**. Käyttäjän 1 muokkaukset.
+**Figure**. User 1's modifications.
 
 \
 
 ![](images/SCR-20250111-kkpc.png)
 
-**Kuva**. Käyttäjän 2 muokkaukset.
+**Figure**. User 2's modifications.
 
 \
 
 \
 
-**Vaihe 3: Käyttäjä 1:n muutokset hyväksytään**
-
-
+**Step 3: User 1's changes are accepted**
 
 \
 
-
-Käyttäjä 1 ehtii tekemiensä muokkausten jälkeen ennen Käyttäjä 2:ta tehdä commitin `C1` ja push-komennon, ja commit `C1` hyväksytään etähakemistoon, koska se perustuu suoraan commit-tilaan `C0`.
+User 1 manages to make commit `C1` and push command after their modifications before User 2, and commit `C1` is accepted to the remote repository because it's based directly on commit state `C0`.
 
 \
 
 \
 
-
-**Vaihe 4: Käyttäjä 2:n muutokset hylätään**
-
-\
-
-
-1.  Käyttäjä 2 yrittää tehdä *test.docx*-tiedostoon tekemiensä muokkausten jälkeen commitin `C2`.\
-2.  Git kuitenkin estää push-komennon, koska etähakemisto on siirtynyt commit-tilaan `C1`. Tämä aiheuttaa ristiriidan.
-
-- Käyttäjä 2 ei siis pysty suorittamaan commit-, push- tai pull-komentoja.
+**Step 4: User 2's changes are rejected**
 
 \
 
+1. User 2 tries to make commit `C2` after modifying the *test.docx* file.\
+2. However, Git prevents the push command because the remote repository has moved to commit state `C1`. This causes a conflict.
+
+- User 2 cannot execute commit, push, or pull commands.
+
+\
 
 ![](images/SCR-20250111-kmvr.png)
 
-**Kuva**. Käyttäjä 2 ajautuu jumiin Gitin kanssa. Commit-tilaa `C1` ei pysty hakemaan pull-komennolla, eikä commit-tilaa `C2` pysty siirtämään commit-tilan `C1` päälle.
+**Figure**. User 2 gets stuck with Git. Commit state `C1` cannot be pulled, and commit state `C2` cannot be pushed on top of commit state `C1`.
 
 \
 
-Vaikka **Käyttäjä 2** antaisi komennon `git config pull.rebase false` ja yrittäisi sen jälkeen pull-toimintoa, Git ei voisi yhdistää kahta eri versiota *test.docx*-tiedostosta, koska kyseessä on binaarinen tiedosto.
+Even if **User 2** gives the command `git config pull.rebase false` and tries to pull after that, Git cannot merge the two different versions of the *test.docx* file because it's a binary file.
 
 \
 
 \
 
+## Summary
 
-## Yhteenveto
+`git config pull.rebase false` is actually best in situations where users haven't really modified the same file simultaneously but have forgotten to execute a pull command before making modifications to the repository. In such cases, resolving conflicts between commit points is relatively easy for Git.
 
-`git config pull.rebase false` on oikeastaan parhaimmillaan tilanteissa, joissa käyttäjät eivät varsinaisesti ole muokanneet samaan aikaan samaa tiedostoa, vaan ovat unohtaneet tehdä pull-komennon ennen kuin tekevät hakemistoon muokkauksia. Tällöin commit-pisteiden välisten ristiriitojen ratkaisu on Gitille melko helppoa.
+`git config pull.rebase false` is not, however, a very effective solution for situations where users have truly modified the same file simultaneously. In such cases, the resulting conflicts usually require at least manual merge editing.
 
-`git config pull.rebase false` ei sen sijaan ole kovin tehokas ratkaisu tilanteisiin, joissa käyttäjät ovat todella muokanneet samaa tiedostoa samanaikaisesti. Tällaisissa tapauksissa syntyneet ristiriidat vaativat yleensä vähintäänkin manuaalista yhdistämisen muokkailua.
+For binary files, merging modifications with `git config pull.rebase false` doesn't work at all. Because Git cannot merge the contents of binary files, all such conflict situations must be resolved by other means, such as choosing one version of the file.
 
-Binaaristen tiedostojen kohdalla `git config pull.rebase false` -tyyppinen muokkausten yhdistäminen ei toimi lainkaan. Koska Git ei voi yhdistää binaaristen tiedostojen sisältöä, kaikki tällaiset ristiriitatilanteet täytyy ratkaista muilla tavoilla, esimerkiksi valitsemalla jompikumpi versio tiedostosta.
-
-Käsittelemme viimeksi mainittua seuraavassa luvussa.
+We'll discuss the latter in the next chapter.
 
 \
 
@@ -322,7 +309,7 @@ Käsittelemme viimeksi mainittua seuraavassa luvussa.
 
 ------------------------------------------------------------------------
 
-Divergent Git branches - ongelmasta ratkaisuun © 2025 by\
+Divergent Git branches - from problem to solution © 2025 by\
 Ville Langén is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
 
 [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)

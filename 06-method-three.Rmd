@@ -1,58 +1,49 @@
-# Korjausmetodi 3: kloonaus{#method-three}
-
-<br><br> <img src="images/cloning.jpg" alt="Test Image" style="max-width: 100%; height: auto;"/>
-
-<figcaption style="font-size: 0.9em; color: gray; margin-top: 5px;">
-
-Image credit: <a href="https://www.pexels.com/photo/people-posing-in-costumes-with-golden-masks-15498630/" target="_blank">Pexels</a>
-
-</figcaption>
+# Fix Method 3: cloning{#method-three}
 
 <br><br>
+<img src="images/cloning.jpg" alt="Test Image" style="max-width: 100%; height: auto;"/>
+<figcaption style="font-size: 0.9em; color: gray; margin-top: 5px;">
+    Image credit: <a href="https://www.pexels.com/photo/people-posing-in-costumes-with-golden-masks-15498630/" target="_blank">Pexels</a>
+</figcaption>
+<br><br>
 
-Jos edelliset korjausmenetelmät eivät toimi tai sovellu käytettäviksi, voit aina aloittaa puhtaalta pöydältä kloonaamalla uuden version etähakemistosta. Samalla tämä paitsi tuo mukanaan puhtaan version projektistasi myös poistaa ongelmat ja ristiriidat, joita paikallisen Git-hakemiston kanssa oli.
+If the previous fix methods don't work or aren't suitable, you can always start fresh by cloning a new version from the remote repository. This not only brings a clean version of your project but also eliminates any problems and conflicts that existed with the local Git repository.
 
+## Steps
 
-## Työvaiheet
-
-1. Ensimmäinen askel on mennä GitHub-repositorioon, jonka haluat kloonata. Siirry GitHubissa repositoriosivulle ja klikkaa "Code"-painiketta. Valitse sen jälkeen "HTTPS" ja kopioi URL-osoite leikepöydälle.
+1. The first step is to go to the GitHub repository you want to clone. Navigate to the repository page on GitHub and click the "Code" button. Then select "HTTPS" and copy the URL to your clipboard.
 
 \
 
 ![](images/Jan-11-2025-01-16-58.mp4){width="80%"}
 
-**Video**. Etähakemiston URL-osoitteen kopioiminen leikepöydälle GitHubissa.
-
-
-
-
+**Video**. Copying the remote repository URL to clipboard in GitHub.
 
 \
 
 \
 
-2. Seuraavaksi valitse RStudiossa "New Project" → "Version Control" → "Git". Liitä juuri kopioitu URL-osoite "Repository URL" -kenttään, paina tietokoneen näppäimistösi Tabulaattori-näppäntä ja muokkaa kansion nimi haluamaasi muotoon. Voit esimerkiksi lisätä numeron "2" alkuperäisen nimen perään, jotta se eroaa vanhasta ongelmallisesta repositoriosta.
+2. Next, in RStudio, select "New Project" → "Version Control" → "Git". Paste the URL you just copied into the "Repository URL" field, press your computer's Tab key, and modify the folder name as desired. For example, you can add a "2" to the end of the original name to distinguish it from the problematic repository.
 
 \
-
 
 ![](images/Jan-11-2025-01-18-33.mp4){width="120%"}
 
-**Video**. Etähakemiston kloonaaminen RStudiossa.
+**Video**. Cloning the remote repository in RStudio.
 
 \
 
 \
 
-## Yhteenveto
+## Summary
 
-Uuden repositorion kloonaaminen on varma tapa ratkaista ongelmia, jotka liittyvät paikallisen ja etäversion välisiin ristiriitoihin. Tämä menetelmä takaa puhtaan lähtökohdan, jolloin voit jatkaa projektin työstämistä ilman aiempia teknisiä esteitä. Se soveltuu erityisesti tilanteisiin, joissa paikallisen hakemiston ongelmat ovat vaikeasti korjattavissa ja muut menetelmät, kuten *git reset*, eivät sovellu käytettäviksi.
+Cloning a new repository is a reliable way to resolve issues related to conflicts between local and remote versions. This method ensures a clean starting point, allowing you to continue working on the project without previous technical obstacles. It's particularly suitable for situations where local repository problems are difficult to fix and other methods, such as *git reset*, aren't appropriate to use.
 
 \
 
 ------------------------------------------------------------------------
 
-Divergent Git branches - ongelmasta ratkaisuun © 2025 by\
+Divergent Git branches - from problem to solution © 2025 by\
 Ville Langén is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
 
 [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)

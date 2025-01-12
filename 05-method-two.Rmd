@@ -1,183 +1,176 @@
-# Korjausmetodi 2: *git reset*{#method-two}
-
-<br><br> <img src="images/reset.jpg" alt="Test Image" style="max-width: 100%; height: auto;"/>
-
-<figcaption style="font-size: 0.9em; color: gray; margin-top: 5px;">
-
-Image credit: <a href="https://www.pexels.com/photo/road-landscape-art-street-2777776/" target="_blank">Pexels</a>
-
-</figcaption>
+# Fix Method 2: *git reset*{#method-two}
 
 <br><br>
+<img src="images/reset.jpg" alt="Test Image" style="max-width: 100%; height: auto;"/>
+<figcaption style="font-size: 0.9em; color: gray; margin-top: 5px;">
+    Image credit: <a href="https://www.pexels.com/photo/road-landscape-art-street-2777776/" target="_blank">Pexels</a>
+</figcaption>
+<br><br>
 
-Kun käyttäjä yrittää tehdä muutoksia, mutta etähakemistossa oleva päähaara on edennyt samanaikaisesti, Git-haarojen divergoituminen voi estää työn sujuvan etenemisen. Yksi tapa ratkaista tällaisia tilanteita on käyttää **reset-menetelmää**. Tässä luvussa esittelemme tästä esimerkin.
+When a user tries to make changes but the main branch in the remote repository has advanced simultaneously, Git branch divergence can prevent work from progressing smoothly. One way to resolve such situations is to use the **reset method**. In this chapter, we'll present an example of this.
 
-## Alkutilanne{#alkutilanne}
+## Initial Situation{#initial-situation}
 
-Alkutilanne on vastaava kuin edellä osiossa \@ref(pull-without-merge).
+The initial situation is similar to what was described in section \@ref(pull-without-merge).
 
--   Käyttäjät 1 ja 2 ovat tällä kertaa muokanneet tiedostoa `test2.R`.
+- Users 1 and 2 have this time modified the file `test2.R`.
 
--   Käyttäjä 1 on jo suorittanut commit- ja push -toiminnot, joten etähakemistossa päähaara on jo edennyt commit-tilaan `C1`. (Ks. Kuva alla.)
+- User 1 has already performed commit and push operations, so the main branch in the remote repository has already advanced to commit state `C1`. (See image below.)
 
 \
 
 ```{r, fig.show='hold', echo=FALSE, out.width=c('44%','10%','44%'), fig.margin = TRUE}
-
 knitr::include_graphics("images/Jan-11-2025-01-14-29.gif")
 knitr::include_graphics("images/empty_panel_space.png")
 knitr::include_graphics("images/SCR-20250111-bhtb.png")
-
 ```
 
-**Kuva**. Tiedoston `test2.R` versiot etähakemistossa (vasemmalla) ja Käyttäjän 2 tietokoneella (oikealla) eroavat toisistaan.
+**Figure**. Versions of file `test2.R` in the remote repository (left) and on User 2's computer (right) differ from each other.
 
 \
 
--   Kun käyttäjä 2 nyt yrittää suorittaa **pull-komennon**, Git estää tämän, koska paikallinen haara on commit-pisteen C0 edellä.
+- When User 2 now tries to execute a **pull command**, Git prevents this because the local branch is ahead of commit point C0.
 
 \
 
-Tilanne esitetään seuraavassa kaaviossa:
+The situation is shown in the following diagram:
 
 \
 
 ![](images/divergent_branch3.png){width="451"}
 
-## Reset-käsky
+## Reset Command
 
-Käyttäjä 2 voi ratkaista tilanteen seuraavilla askelilla:
+User 2 can resolve the situation with the following steps:
 
-1.  **Ensin ongelmallinen tiedosto varmuuskopioidaan**
+1. **First backup the problematic file**
 
-    Käyttäjä 2 kopioi tiedoston `test.R` työpöydälleen tai muuhun varmuuskopiointikansioon. Tämä estää tiedoston häviämisen, kun Gitin tila päivitetään.
+    User 2 copies the file `test.R` to their desktop or other backup folder. This prevents the file from being lost when the Git state is updated.
 
-Alla video tästä. Huom! Jos työpöydälle siirrettävä tiedosto on auki RStudiossa, tämä varoittaa tiedoston siirtymisestä:
+Below is a video of this. Note! If the file being moved to the desktop is open in RStudio, it will warn about the file being moved:
 
 \
 
 ![](images/Jan-11-2025-01-04-22.mp4)
 
-**Video**. Ongelmallinen tiedosto `test2.R` varmuuskopioidaan työpöydälle.
+**Video**. The problematic file `test2.R` is backed up to the desktop.
 
 \
 
 \
 
-2.  **Resetoidaan aikapiste etähakemiston viimeisimpään päähaaran aikapisteeseen**
+2. **Reset the timepoint to the latest main branch timepoint in the remote repository**
 
-    Käyttäjä suorittaa seuraavat komennot palatakseen etähakemiston viimeisimpään tilaan (`C1`):
+    The user executes the following commands to return to the remote repository's latest state (`C1`):
 
 \
 
 ```{bash, eval = FALSE}
 git fetch
 git reset --hard origin/main
-
 ```
 
 \
 
-Näillä komennoilla varmistetaan, että:
+These commands ensure that:
 
-1. Paikallinen hakemisto vastaa etähakemiston viimeisintä tilaa
-  - `git fetch` lataa uusimmat muutokset etähakemistosta ilman, että paikalliset tiedostot muuttuvat
-2. `git reset --hard origin/main` palauttaa paikallisen haaran ja työtilan tarkalleen etähakemiston tilaan.
-
+1. The local repository matches the latest state of the remote repository
+  - `git fetch` downloads the latest changes from the remote repository without changing local files
+2. `git reset --hard origin/main` returns the local branch and workspace exactly to the remote repository's state.
 
 \
 
 ![](images/Jan-11-2025-01-08-44.mp4)
 
-**Video**. Reset-käsky.
+**Video**. Reset command.
 
 \
 
 \
 
-3.  **`test2.R`-tiedoston tarkastelu**
+3. **Examining the `test2.R` file**
 
-    Avaamalla `test2.R`-tiedoston Käyttäjä 2 voi havaita, että tiedosto on palautunut Käyttäjä 1:n muokkaamaan commit-tilaan `C1`:
+    By opening the `test2.R` file, User 2 can see that the file has returned to User 1's modified commit state `C1`:
 
 \
 
 ![](images/Jan-11-2025-01-09-19.mp4)
 
-**Video**. `test2.R`-tiedoston tarkastelu.
+**Video**. Examining the `test2.R` file.
 
 \
 
 \
 
-4.  **Käyttäjä 2:n muokkaaman `test2.R`-tiedoston palautus**
+4. **Restoring User 2's modified `test2.R` file**
 
-    Käyttäjä 2:n muokkaama `test2.R`-tiedosto voidaan nyt palauttaa työpöydältä paikalliseen Git-hakemistoon. Samalla se uudelleennimetään muotoon `test2 copy.R`:
+    User 2's modified `test2.R` file can now be restored from the desktop to the local Git repository. At the same time, it is renamed to `test2 copy.R`:
 
 \
 
 ![](images/Jan-11-2025-01-10-39.mp4)
 
-**Video**. Tiedoston `test2.R` palautus työpöydältä.
+**Video**. Restoring file `test2.R` from desktop.
 
 \
 
 \
 
-5.  **Tiedostojen `test2.R` ja `test2 copy.R` tarkastelu**
+5. **Examining files `test2.R` and `test2 copy.R`**
 
-    Käyttäjä 2 voi nyt vielä tarkastella edellä mainittujen tiedostojen eroja RStudiossa:
+    User 2 can now examine the differences between these files in RStudio:
 
 \
 
 ![](images/Jan-11-2025-01-11-39.mp4)
 
-**Video**. Tiedostojen `test2.R` ja `test2 copy.R` tarkastelu RStudiossa.
+**Video**. Examining files `test2.R` and `test2 copy.R` in RStudio.
 
 \
 
 \
 
-6.  **Commit- ja push -toiminto etähakemistoon**
+6. **Commit and push operation to remote repository**
 
 \
 
-Käyttäjä 2 voi nyt halutessaan suorittaa commit- ja push -toiminnon tiedostolle `test2 copy.R`:
+User 2 can now perform commit and push operations for the file `test2 copy.R`:
 
 \
 
 ![](images/Jan-11-2025-01-13-38.mp4)
 
-**Video**. Onnistunut commit- ja push -toiminto.
+**Video**. Successful commit and push operation.
 
 \
 
 \
 
-7.  **Etähakemiston tarkastelu GitHubissa**
+7. **Examining the remote repository in GitHub**
 
 \
 
-Käyttäjä 2 voi nyt varmistaa, että myös hänen muokkaamansa tiedosto `test2 copy.R` näkyy etähakemistossa:
+User 2 can now verify that their modified file `test2 copy.R` appears in the remote repository:
 
 \
 
 ![](images/Jan-11-2025-01-15-24.mp4)
 
-**Video**. Myös tiedosto `test2 copy.R` näkyy nyt etähakemistossa.
+**Video**. The file `test2 copy.R` now appears in the remote repository.
 
 \
 
-## Yhteenveto
+## Summary
 
-Reset-metodi tarjoaa suoraviivaisen ja tehokkaan tavan ratkaista tilanteita, joissa paikallinen haara ja etähakemisto ovat divergoituneet. Tärkeimmät vaiheet sisältävät ongelmallisen tiedoston varmuuskopioinnin, reset-käskyn käytön etähakemiston tilaan palaamiseksi ja lopuksi tiedoston palauttamisen uudella nimellä. Näin käyttäjät voivat jatkaa työskentelyä ilman tietojen menetystä, ja commit- ja push-toiminnot onnistuvat jälleen.
+The reset method offers a straightforward and effective way to resolve situations where the local branch and remote repository have diverged. The most important steps include backing up the problematic file, using the reset command to return to the remote repository state, and finally restoring the file with a new name. This way, users can continue working without losing data, and commit and push operations work again.
 
-Reset-metodin avulla vältetään monimutkaisempien konfliktien selvittäminen ja säilytetään sekä oma työ että tiimin päähaaran eheys.
+The reset method helps avoid resolving more complex conflicts while preserving both your own work and the integrity of the team's main branch.
 
 \
 
 ------------------------------------------------------------------------
 
-Divergent Git branches - ongelmasta ratkaisuun © 2025 by\
+Divergent Git branches - from problem to solution © 2025 by\
 Ville Langén is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
 
 [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)

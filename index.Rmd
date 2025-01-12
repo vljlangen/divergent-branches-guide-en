@@ -1,5 +1,5 @@
 ---
-title: "Divergent Git branches - ongelmasta ratkaisuun"
+title: "Divergent Git branches - from problem to solution"
 documentclass: book
 output:
   bookdown::gitbook:
@@ -12,7 +12,7 @@ output:
           <li><a href="https://bookdown.org/">Proudly published with bookdown</a></li>
 author: Ville Langén
 date: "`r format(Sys.time(), '%d.%m.%Y')`"
-description: "Opas Gitin käyttöön tieteellisissä projekteissa, joissa keskitytään toimimaan yhden päähaaran sisällä."
+description: "A guide to using Git in scientific projects focusing on working within a single main branch."
 editor_options: 
   markdown: 
     wrap: 72
@@ -28,36 +28,33 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br> <br> <br>
 
-# Esipuhe
+# Preface
 
-Tässä e-kirjassa esittelen, kuinka Gitin haarojen erkaantuminen eli *divergent branches* -ongelma on helposti ratkaistavissa pienissä Git-projekteissa, joissa tavoitteena on toimia pääasiassa lähinnä yhden saman päähaaran sisällä.
+In this e-book, I will demonstrate how the Git divergent branches problem can be easily solved in small Git projects where the goal is to primarily work within a single main branch.
 
-## Kenelle tämä kirja on tarkoitettu?
+## Who is this book for?
 
-Tämä kirja on suunnattu tutkijoille, datatieteilijöille ja
-ohjelmoijille, jotka käyttävät Gitiä tieteellisissä projekteissaan ja
-haluavat syventää osaamistaan haarojen hallinnasta.
+This book is aimed at researchers, data scientists, and programmers who use Git in their scientific projects and want to deepen their understanding of branch management.
 
-## Rakenne
+## Structure
 
-Kirja on jaettu kolmeen osaan:
+The book is divided into three parts:
 
-1. Gitin toiminnan ja haarautumisen ymmärtäminen (kappaleet \@ref(one-or-many-brances), \@ref(no-divergences) ja \@ref(divergences))
+1. Understanding Git operations and branching (chapters \@ref(one-or-many-brances), \@ref(no-divergences), and \@ref(divergences))
 
-2. Kolme eri menetelmää divergoituneiden haarojen hallintaan (kappaleet \@ref(method-one), \@ref(method-two) ja \@ref(method-three))
+2. Three different methods for managing divergent branches (chapters \@ref(method-one), \@ref(method-two), and \@ref(method-three))
 
-3. Yhteenveto-osio - ***[johon kiireisimmät voivat siirtyä suoraan](#summary)!*** 🏃🙂
+3. Summary section - ***[which the busiest readers can jump to directly](#final-summary)!*** 🏃🙂
 
 \
 
-Seuraavassa luvussa sukellamme Gitin perusteisiin ja sen toimintaan
-haarautumisessa.
+In the next chapter, we'll dive into Git basics and how it works with branching.
 
 \
 
 ------------------------------------------------------------------------
 
-Divergent Git branches - ongelmasta ratkaisuun © 2025 by
+Divergent Git branches - from problem to solution © 2025 by
 Ville Langén is licensed under the [CC BY-SA
 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
 
@@ -68,7 +65,7 @@ Ville Langén is licensed under the [CC BY-SA
 ```{js, echo = FALSE}
 title=document.getElementById('header');
 title.innerHTML = title.innerHTML + '<br>' + '<br>' + '<img src="images/cover_photo.jpeg" alt="Test Image">' +
-    '<figcaption style="font-size: 0.9em; color: gray; margin-top: 5px;">' + 'Image credit: <a href="https://www.pexels.com/photo/cherry-blossom-tree-932409/" target="_blank">Pexels</a>' + '</figcaption>' + '<br>' + '<br>' + '<p><em>This e-book is available also <a href="https://r-guide-in-english.netlify.app/" target="_blank">in English.</a></em></p>'
+    '<figcaption style="font-size: 0.9em; color: gray; margin-top: 5px;">' + 'Image credit: <a href="https://www.pexels.com/photo/cherry-blossom-tree-932409/" target="_blank">Pexels</a>' + '</figcaption>' + '<br>' + '<br>' + '<p><em>This e-book is available also <a href="https://divergent-branches-fi.netlify.app/" target="_blank">in Finnish.</a> (Tämä kirja on luettavissa myös <a href="https://divergent-branches-fi.netlify.app/" target="_blank">suomeksi.)</a></em></p>'
 
 ```
 

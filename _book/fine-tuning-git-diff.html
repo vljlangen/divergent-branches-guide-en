@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Fix Method 1: merge function | Divergent Git branches - from problem to solution</title>
+  <title>8 Fine-tuning: git diff | Divergent Git branches - from problem to solution</title>
   <meta name="description" content="A guide to using Git in scientific projects focusing on working within a single main branch." />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Fix Method 1: merge function | Divergent Git branches - from problem to solution" />
+  <meta property="og:title" content="8 Fine-tuning: git diff | Divergent Git branches - from problem to solution" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A guide to using Git in scientific projects focusing on working within a single main branch." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Fix Method 1: merge function | Divergent Git branches - from problem to solution" />
+  <meta name="twitter:title" content="8 Fine-tuning: git diff | Divergent Git branches - from problem to solution" />
   
   <meta name="twitter:description" content="A guide to using Git in scientific projects focusing on working within a single main branch." />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="divergences.html"/>
-<link rel="next" href="method-two.html"/>
+<link rel="prev" href="method-three.html"/>
+<link rel="next" href="final-summary.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -203,264 +203,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="method-one" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">5</span> Fix Method 1: <em>merge</em> function<a href="method-one.html#method-one" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="fine-tuning-git-diff" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Fine-tuning: <em>git diff</em><a href="fine-tuning-git-diff.html#fine-tuning-git-diff" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <br><br>
-<img src="images/merge.jpg" alt="Test Image" style="max-width: 100%; height: auto;">
+<img src="images/fine-tuning.jpg" alt="Test Image" style="max-width: 100%; height: auto;"/>
 <figcaption style="font-size: 0.9em; color: gray; margin-top: 5px;">
-Image credit: <a href="https://www.pexels.com/photo/abstract-background-of-painting-with-curved-dye-flows-6404219/" target="_blank">Pexels</a>
+Image credit: <a href="https://www.pexels.com/photo/man-fixing-clock-mechanism-8327576/" target="_blank">Pexels</a>
 </figcaption>
 <p><br><br></p>
-<p>In the previous chapter, we examined a situation where two users simultaneously made changes to the same commit state <code>C0</code> and tried to push their own commits to the remote repository. In this chapter, we’ll see what happens when a user configures Git settings so that the pull command automatically attempts to merge changes.</p>
-<p>We’ll examine the progression of the situation especially from User 2’s perspective.</p>
+<p>Let’s imagine a situation where the file ‘test.R’ is identical in both the remote repository and local repository, but there are differences between them in the file ‘test2.R’. This kind of scenario was described earlier in section <a href="method-two.html#initial-situation">6.1</a>.</p>
+<p>If conflicts occur between Git branches during commit and push operations, the Git user can investigate the situation further. Differences between the local Git branch and remote repository can be examined in more detail using the following commands:</p>
 <p><br />
 </p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="fine-tuning-git-diff.html#cb3-1" tabindex="-1"></a><span class="fu">git</span> fetch</span>
+<span id="cb3-2"><a href="fine-tuning-git-diff.html#cb3-2" tabindex="-1"></a><span class="fu">git</span> diff main origin/main</span></code></pre></div>
 <p><br />
 </p>
-<hr />
-<p><br />
-</p>
-<div id="pull-without-merge" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> Pull without <code>merge</code> permission<a href="method-one.html#pull-without-merge" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Step 1: User 1 and User 2 execute pull command (C0)</strong></p>
-<p><br />
-</p>
-<p>Both users start the project from the same initial state. They execute a <strong>pull command</strong> and update their local repositories to commit state <code>C0</code>.</p>
-<p>After this, they begin working on the file <code>test.R</code>. At point <code>C0</code>, it looks like this for all users:</p>
-<p><br />
-</p>
-<p><img src="" /><br />
-</p>
-
-<p><img src="images/SCR-20250110-udus.png" width="50%" /></p>
-<p><strong>Figure</strong>. Initial state at commit point C0.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<hr />
-<p><br />
-</p>
-<p><strong>Step 2: Users 1 and 2 modify the file independently</strong></p>
-<p><br />
-</p>
-<ul>
-<li>User 1 has modified the file and <strong>already pushed it to the remote repository</strong>.</li>
-<li>User 2 has also modified the file but hasn’t pushed it to the remote repository yet.</li>
-</ul>
-<p><br />
-</p>
-
-<p><img src="images/SCR-20250110-uehj.png" width="44%" /><img src="images/empty_panel_space.png" width="10%" /><img src="images/SCR-20250110-uejf.png" width="44%" /></p>
-<p><strong>Figure</strong>. User 1’s changes already in remote repository (left image), User 2’s changes not yet pushed (right). <strong><em>The users’ changes clearly differ from each other.</em></strong></p>
-<p><br />
-</p>
-<p><br />
-</p>
-<hr />
-<p><br />
-</p>
-<p><strong>Step 3: User 2 tries to push their modifications to the remote repository</strong><br />
-</p>
-<p><br />
-</p>
-<ul>
-<li>User 2 first tries to execute a pull command, but this fails:</li>
-</ul>
-<p><br />
-</p>
-<p><video src="images/Jan-10-2025%2023-25-04.mp4" controls=""><a href="images/Jan-10-2025%2023-25-04.mp4">Video</a></video></p>
-<p><strong>Video</strong>. First - and failed - pull attempt.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<ul>
-<li>User 2 tries to execute commit + push command, but this also fails:</li>
-</ul>
-<p><br />
-</p>
-<p><video src="images/Jan-10-2025%2023-25-04.mp4" controls=""><a href="images/Jan-10-2025%2023-25-04.mp4">Video</a></video></p>
-<p><strong>Video</strong>. Commit + push also fails.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<ul>
-<li>User 2 makes another pull command and receives the following error message with instructions:</li>
-</ul>
-<p><br />
-</p>
-<p><video src="images/Jan-10-2025%2023-29-43.mp4" controls=""><a href="images/Jan-10-2025%2023-29-43.mp4">Video</a></video><br />
-</p>
-<p><strong>Video</strong>. New - failed - pull attempt.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<ul>
-<li>User 2 copies the following command from Git’s instructions to the clipboard:</li>
-</ul>
-<p><br />
-</p>
-<p><code>git config pull.rebase false</code></p>
-<p><br />
-</p>
-<p><img src="images/Jan-10-2025%2023-32-44.gif" /></p>
-<p><strong>Video</strong>. Command to be copied to clipboard from pull attempt.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-</div>
-<div id="giving-merge-permission" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Giving <code>merge</code> permission<a href="method-one.html#giving-merge-permission" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Before User 2 makes a third pull attempt, they run the command in Terminal</p>
-<p><br />
-</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="method-one.html#cb1-1" tabindex="-1"></a><span class="fu">git</span> config pull.rebase false</span></code></pre></div>
-<p><br />
-</p>
-<p>to give Git permission to attempt merge operation when pulling new changes from the remote repository.</p>
-<p>Running the command in Terminal happens as follows:</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<p><video src="images/Jan-10-2025-23-34-59.mp4" controls=""><a href="images/Jan-10-2025-23-34-59.mp4">Video</a></video><!-- --></p>
-<p><strong>Video</strong>. Running the command <code>git config pull.rebase false</code> in Terminal.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-</div>
-<div id="pull-with-merge-permission" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Pull with merge permission<a href="method-one.html#pull-with-merge-permission" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now User 2 can successfully execute a pull command, which creates a new merge commit. However, it produces a warning that instructs to verify that the merge was successful:</p>
-<p><br />
-</p>
-<p><video src="images/Jan-10-2025-23-36-37.mp4" controls=""><a href="images/Jan-10-2025-23-36-37.mp4">Video</a></video></p>
-<p><strong>Video</strong>. Third pull attempt succeeds.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<p>Next, User 2 needs to verify by editing the test file <code>test.r</code> that the <em>merge</em> was successful.</p>
-<p><br />
-</p>
-<p><video src="images/Jan-11-2025-22-44-07.mp4" controls=""><a href="images/Jan-11-2025-22-44-07.mp4">Video</a></video></p>
-<p><strong>Video</strong>. File <code>test.R</code> must be manually edited to fix after the <em>merge</em> operation.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<p>After this, commit + push operations go through without problems:</p>
-<p><br />
-</p>
-<p><video src="images/Jan-10-2025-23-41-12.mp4" style="width:99.0%" controls=""><a href="images/Jan-10-2025-23-41-12.mp4">Video</a></video></p>
-<p><strong>Video</strong>. Commit + push operations go through to the remote repository.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<p>Now the file <code>test.R</code> appears in User 2’s updated form in GitHub:</p>
-<p><br />
-</p>
-<p><video src="images/Jan-10-2025-23-43-57.mp4" controls=""><a href="images/Jan-10-2025-23-43-57.mp4">Video</a></video></p>
-<p><strong>Video</strong>. The merged file now appears in the remote repository on GitHub.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-</div>
-<div id="binary-files" class="section level2 hasAnchor" number="5.4">
-<h2><span class="header-section-number">5.4</span> Binary files<a href="method-one.html#binary-files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Binary files</strong> are files that contain information in a form that cannot be directly read or edited with a text editor. Examples of binary files include Word documents (<em>.docx</em>) and bitmap images (e.g., <em>.png</em>). These files cannot be merged with Git’s <em>merge</em> operation because their content cannot be interpreted as simple text, and even small changes in the file can cause large differences in the binary structure.</p>
-<p>Even if you set Git to use <code>git config pull.rebase false</code> to ensure simpler pulling, it doesn’t help resolve merging binary files. When two users make changes to the same binary file in different commit states, a situation arises that requires more robust solutions.</p>
-<div id="example-with-.docx" class="section level3 hasAnchor" number="5.4.1">
-<h3><span class="header-section-number">5.4.1</span> Example with <em>.docx</em><a href="method-one.html#example-with-.docx" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><br />
-</p>
-<p><strong>Step 1: Remote repository state (C0)</strong></p>
-<p><br />
-</p>
-<p>All users start from a situation where <em>test.docx</em> is in commit state <code>C0</code> and looks like this:</p>
-<p><br />
-</p>
-<p><img src="images/SCR-20250111-kkay.png" /></p>
-<p><br />
-</p>
-<p><br />
-</p>
-<p><strong>Step 2. User 1 and User 2 make their own modifications to the same Word file:</strong></p>
-<p><br />
-</p>
-<p><img src="images/SCR-20250111-kklf.png" /></p>
-<p><strong>Figure</strong>. User 1’s modifications.</p>
-<p><br />
-</p>
-<p><img src="images/SCR-20250111-kkpc.png" /></p>
-<p><strong>Figure</strong>. User 2’s modifications.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<p><strong>Step 3: User 1’s changes are accepted</strong></p>
-<p><br />
-</p>
-<p>User 1 manages to make commit <code>C1</code> and push command after their modifications before User 2, and commit <code>C1</code> is accepted to the remote repository because it’s based directly on commit state <code>C0</code>.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-<p><strong>Step 4: User 2’s changes are rejected</strong></p>
-<p><br />
-</p>
+<p><strong>Command explanation</strong>:</p>
 <ol style="list-style-type: decimal">
-<li>User 2 tries to make commit <code>C2</code> after modifying the <em>test.docx</em> file.<br />
-</li>
-<li>However, Git prevents the push command because the remote repository has moved to commit state <code>C1</code>. This causes a conflict.</li>
-</ol>
+<li>The first command <code>git fetch</code> ensures that Git updates information about the remote repository’s state without merging it with the local version.
 <ul>
-<li>User 2 cannot execute commit, push, or pull commands.</li>
-</ul>
+<li>The information is stored locally in Git’s hidden <code>.git/</code> directory for examination purposes only.</li>
+</ul></li>
+<li>The second command <code>git diff main origin/main</code> shows detailed differences between the local main branch (<em>main</em>) and the remote repository’s main branch (<em>origin/main</em>).</li>
+</ol>
 <p><br />
 </p>
-<p><img src="images/SCR-20250111-kmvr.png" /></p>
-<p><strong>Figure</strong>. User 2 gets stuck with Git. Commit state <code>C1</code> cannot be pulled, and commit state <code>C2</code> cannot be pushed on top of commit state <code>C1</code>.</p>
+<p><video src="images/Jan-11-2025-01-02-06.mp4" style="width:80.0%" controls=""><a href="images/Jan-11-2025-01-02-06.mp4">Video</a></video></p>
+<p><strong>Video</strong>. Examining differences between local and remote repository.</p>
 <p><br />
 </p>
-<p>Even if <strong>User 2</strong> gives the command <code>git config pull.rebase false</code> and tries to pull after that, Git cannot merge the two different versions of the <em>test.docx</em> file because it’s a binary file.</p>
-<p><br />
-</p>
-<p><br />
-</p>
-</div>
-</div>
-<div id="summary-3" class="section level2 hasAnchor" number="5.5">
-<h2><span class="header-section-number">5.5</span> Summary<a href="method-one.html#summary-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><code>git config pull.rebase false</code> is actually best in situations where users haven’t really modified the same file simultaneously but have forgotten to execute a pull command before making modifications to the repository. In such cases, resolving conflicts between commit points is relatively easy for Git.</p>
-<p><code>git config pull.rebase false</code> is not, however, a very effective solution for situations where users have truly modified the same file simultaneously. In such cases, the resulting conflicts usually require at least manual merge editing.</p>
-<p>For binary files, merging modifications with <code>git config pull.rebase false</code> doesn’t work at all. Because Git cannot merge the contents of binary files, all such conflict situations must be resolved by other means, such as choosing one version of the file.</p>
-<p>We’ll discuss the latter in the next chapter.</p>
-<p><br />
-</p>
-<p><br />
-</p>
+<p>This method is particularly useful when the user isn’t sure which files are causing problems or what changes have been made. This way, users can examine changes at the file level and make necessary corrections.</p>
+<p><strong>This kind of examination isn’t always necessary.</strong> If users already know which files or changes are problematic, this step can be skipped. For example, in simple projects where the source of conflict is clear, such as a single file, this detailed examination isn’t needed. However, in more complex situations or large projects, this method can save time and help detect hidden problems.</p>
 <hr />
 <p>Divergent Git branches - from problem to solution © 2025 by<br />
 Ville Langén is licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1">CC BY-SA 4.0</a>.</p>
 <p><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="https://licensebuttons.net/l/by-sa/4.0/88x31.png" alt="CC BY-SA 4.0" /></a></p>
 
 </div>
-</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="divergences.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="method-two.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="method-three.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

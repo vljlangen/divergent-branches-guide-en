@@ -1,4 +1,4 @@
-# Yhteenveto{#summary}
+# Summary{#final-summary}
 
 <br><br> <img src="images/summary.jpg" alt="Test Image" style="max-width: 100%; height: auto;"/>
 
@@ -11,13 +11,13 @@ Image credit: <a href="https://www.pexels.com/photo/person-holding-a-book-383202
 <br><br>
 
 
-Git-haarojen ristiriitojen ratkaisemiseen on useita menetelmiä, ja niiden soveltaminen riippuu tilanteen monimutkaisuudesta:
+There are several methods for resolving Git branch conflicts, and their application depends on the complexity of the situation:
 
 \
 
-1. Joskus yksinkertainen komento `git config pull.rebase false` ja uusi pull-commit-push -toimintojen sarja riittävät ratkaisemaan ongelman.
+1. Sometimes a simple command `git config pull.rebase false` and a new pull-commit-push sequence is sufficient to solve the problem.
 
-   `git config pull.rebase false` -komento ajetaan Terminalissa:
+   The `git config pull.rebase false` command is run in Terminal:
     
 \
 
@@ -29,9 +29,9 @@ git config pull.rebase false
 
 \
 
-2. Monimutkaisemmissa tilanteissa käyttäjän saattaa olla tarpeen kopioida uudet paikalliset muokkaukset vaikkapa työpöydälle ja suorittaa **hard reset**, joka palauttaa paikallisen hakemiston vastaamaan etähakemiston tilaa.
+2. In more complex situations, the user might need to copy new local modifications to the desktop and perform a **hard reset**, which returns the local directory to match the remote repository's state.
 
-   Suoritettavat komennot ajetaan Terminalissa:
+   The commands to be executed in Terminal are:
    
 \
 
@@ -44,7 +44,7 @@ git reset --hard origin/main
 
 \
 
-3. Jos mikään muu ei auta, uuden kloonin tekeminen etähakemistosta on aina varma ja lopullinen ratkaisu, joka poistaa kaikki ristiriidat.
+3. If nothing else helps, creating a new clone from the remote repository is always a sure and final solution that removes all conflicts.
 
 \
 
@@ -55,19 +55,19 @@ git reset --hard origin/main
 \
 
 
-Näiden menetelmien avulla saat Git-projektisi taas hallintaasi.
+With these methods, you can regain control of your Git project.
 
 \
 
-Kiitos, että luit tämän oppaan Git-haarojen ongelmien ratkaisusta. Git voi joskus tuntua haastavalta, mutta kuten tässä oppaassa on todettu, jokainen ongelma on ratkaistavissa.
+Thank you for reading this guide on solving Git branch problems. Git can sometimes feel challenging, but as shown in this guide, every problem has a solution.
 
-Onnea matkaan Git-projektiesi parissa!
+Good luck with your Git projects!
 
 \
 
 ------------------------------------------------------------------------
 
-Divergent Git branches - ongelmasta ratkaisuun © 2025 by\
+Divergent Git branches - from problem to solution © 2025 by\
 Ville Langén is licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1).
 
 [![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
